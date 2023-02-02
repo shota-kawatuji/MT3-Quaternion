@@ -173,8 +173,6 @@ Quaternion& Quaternion::operator/=(float s)
 	// TODO: return ステートメントをここに挿入します
 }
 
-
-
 Vector3 MatVector(const Vector3& vector, const Matrix4& matrix)
 {
 	float w = vector.x * matrix.m[0][3] + vector.y * matrix.m[1][3] + vector.z * matrix.m[2][3] + matrix.m[3][3];
@@ -242,6 +240,28 @@ Quaternion Slerp(const Quaternion& q0, const Quaternion& q1, float t)
 
 	//補間後のQuaternionを求める
 	return scale0 * r0 + scale1 * r1;
+}
+
+Quaternion DirectionToDirection(const Vector3& u, const Vector3& v)
+{
+	Vector3 v1 = u;
+	Vector3 v2 = v;
+	Quaternion ans;
+
+	v1.normalize();
+	v2.normalize();
+
+	//正規化して内積をとる
+	float dot = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	//外積をとる
+	Vector3 Cross = v1.cross(v2);
+	//とった外積を正規化
+	Vector3 axis = Cross.normalize();
+	//為す角を求める
+	float theta = std::acos(dot);
+	//axisとthetaで任意軸回転を使って値を返す
+	ans = MakeAxisAngle(axis, theta);
+	return ans;
 }
 
 const Quaternion operator+(const Quaternion& v1, const Quaternion& v2)

@@ -50,6 +50,9 @@ Quaternion MakeAxisAngle(const Vector3& axis, float radian);
 //
 Quaternion Slerp(const Quaternion& q0, const Quaternion& q1, float t);
 
+//
+Quaternion DirectionToDirection(const Vector3& u, const Vector3& v);
+
 //2項演算子オーバーロード
 //いろんな引数(引数の型と順序)のパターンに対応するため、以下のように準備している
 const Quaternion operator+(const Quaternion& v1, const Quaternion& v2);

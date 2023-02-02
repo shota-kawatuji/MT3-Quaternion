@@ -5,7 +5,7 @@
 #include "Quaternion.h"
 
 // ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "LE2C_08_カワツジショウタ";
+const char TITLE[] = "LE2B_17_ナガハマコウキ";
 
 // ウィンドウ横幅
 const int WIN_WIDTH = 600;
@@ -46,15 +46,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
-	Quaternion rotation0 = MakeAxisAngle({ 0.71f,0.71f,0.0f }, 0.3f);
-	Quaternion rotation1 = { -rotation0.x, -rotation0.y, -rotation0.z, -rotation0.w };
+	Vector3 direction1 = { 1.0f,0.0f,1.0f };
+	Vector3 direction2 = { 1.0f,1.0f,0.0f };
+	Quaternion dirToDir = DirectionToDirection(direction1, direction2);
 
 
-	Quaternion interpolate0 = Slerp(rotation0, rotation1, 0.0f);
-	Quaternion interpolate1 = Slerp(rotation0, rotation1, 0.3f);
-	Quaternion interpolate2 = Slerp(rotation0, rotation1, 0.5f);
-	Quaternion interpolate3 = Slerp(rotation0, rotation1, 0.7f);
-	Quaternion interpolate4 = Slerp(rotation0, rotation1, 1.0f);
 
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
@@ -82,12 +78,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 描画処理
 
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : interpolation0, Slerp(q0, q1, 0.0f)", interpolate0.x, interpolate0.y, interpolate0.z, interpolate0.w);
-		DrawFormatString(0, 20, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : interpolation1, Slerp(q0, q1, 0.3f)", interpolate1.x, interpolate1.y, interpolate1.z, interpolate1.w);
-		DrawFormatString(0, 40, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : interpolation2, Slerp(q0, q1, 0.5f)", interpolate2.x, interpolate2.y, interpolate2.z, interpolate2.w);
-		DrawFormatString(0, 60, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : interpolation3, Slerp(q0, q1, 0.7f)", interpolate3.x, interpolate3.y, interpolate3.z, interpolate3.w);
-		DrawFormatString(0, 80, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : interpolation4, Slerp(q0, q1, 1.0f)", interpolate4.x, interpolate4.y, interpolate4.z, interpolate4.w);
-		/*DrawFormatString(0, 20, GetColor(255, 255, 255),  "%4.2f  %4.2f  %4.2f        : rotateByMatrix",);*/
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "%4.2f  %4.2f  %4.2f   %4.2f  : (1.0,0.0,1.0) to (1.0,1.0,0.0)", dirToDir.x, dirToDir.y, dirToDir.z, dirToDir.w);
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
 		ScreenFlip();
