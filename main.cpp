@@ -60,13 +60,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	Quaternion mul1;
 	Quaternion mul2;
 
-	identity.IdentityQuaternion();
-	conj = conj.Conjugate(q1);
-	inv = inv.Inverse(q1);
-	normal = normal.Normalize(q1);
-	mul1 = mul1.Multiply(q1, q2);
-	mul2 = mul2.Multiply(q2, q1);
-	float norm = q1.Norm(q1);
+	
 
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
@@ -100,7 +94,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		DrawFormatString(0, 60, GetColor(255, 255, 255), "%f %f %f %f  : normal", normal.x, normal.y, normal.z, normal.w);
 		DrawFormatString(0, 80, GetColor(255, 255, 255), "%f %f %f %f  : mul1", mul1.x, mul1.y, mul1.z, mul1.w);
 		DrawFormatString(0, 100, GetColor(255, 255, 255), "%f %f %f %f  : mul2", mul2.x, mul2.y, mul2.z, mul2.w);
-		DrawFormatString(0, 120, GetColor(255, 255, 255), "%f  : norm", norm);
+		//DrawFormatString(0, 120, GetColor(255, 255, 255), "%f  : norm", norm);
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

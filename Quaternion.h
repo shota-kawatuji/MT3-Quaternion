@@ -1,62 +1,36 @@
 #pragma once
-#include<math.h>
-
+#include"vector3.h"
+#include"Matrix4.h"
 class Quaternion
 {
-public: // サブクラス
+public:
 	float x;
 	float y;
 	float z;
 	float w;
 
-public:
 	Quaternion();
 	Quaternion(float x, float y, float z, float w);
 
-	/// <summary>
-	/// 積
-	/// </summary>
-	/// <param name="lhs"></param>
-	/// <param name="rhs"></param>
-	/// <returns></returns>
-	Quaternion Multiply(const Quaternion& lhs, const Quaternion& rhs);
-
-	/// <summary>
-	/// 情報単位元
-	/// </summary>
-	/// <returns></returns>
+	//Quaternionの積
+	Quaternion Multiply(Quaternion r);
+	//単位Quaternionを返す
 	Quaternion IdentityQuaternion();
-
-	/// <summary>
-	/// 共役
-	/// </summary>
-	/// <param name="quaternion"></param>
-	/// <returns></returns>
-	Quaternion Conjugate(const Quaternion& quaternion);
-
-	/// <summary>
-	/// ノルム
-	/// </summary>
-	/// <param name="quaternion"></param>
-	/// <returns></returns>
-	float Norm(const Quaternion& quaternion);
-
-	/// <summary>
-	/// 単位Quaternion
-	/// </summary>
-	/// <param name="quaternion"></param>
-	/// <returns></returns>
-	Quaternion Normalize(const Quaternion& quaternion);
-
-	/// <summary>
-	/// 逆Quaternion
-	/// </summary>
-	/// <param name="quaternion"></param>
-	/// <returns></returns>
-	Quaternion Inverse(const Quaternion& quaternion);
-
-private:
-	float half = 0.5f;
+	//共役Quaternionを返す
+	Quaternion Conjugate();
+	//Quaternionのnormを返す
+	float Norm() const;
+	//正規化したQuaternionを返す
+	Quaternion Normalize();
+	//逆Quaternionを返す
+	Quaternion INverse();
+	//ベクトルをQuaternionで回転させた結果のベクトルを求める
+	Vector3 RotateVector(const Vector3& vector);
+	//Quaternionから回転行列を求める
+	Matrix4 MakeRotateMatrix();
 };
 
-const Quaternion operator / (const Quaternion& q, float s);
+//任意軸回転を表すQuaternionの生成
+Quaternion MakeAxisAngle(const Vector3& axsi, float angle);
+
+const Quaternion operator/(const Quaternion& v, float s);
